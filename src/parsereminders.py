@@ -36,7 +36,7 @@ console = Console()
 # )
 
 
-def ParseReminders(remindersPath: Path | str = Path("reminders.json")):
+def ReadReminders(remindersPath: Path | str = Path("reminders.json")):
 
     remindersPath = Path(remindersPath)
 
@@ -50,9 +50,68 @@ def ParseReminders(remindersPath: Path | str = Path("reminders.json")):
 
         reminders = json.load(file)
 
-    print(json.dumps(reminders, indent=4))
+    return reminders
+
+
+def GetCompleted(reminders):
+
+    completed = [reminder for reminder in reminders if reminder["isCompleted"]]
+
+    return completed
+
+
+def GetUnCompleted(reminders):
+
+    uncompleted = [reminder for reminder in reminders if not reminder["isCompleted"]]
+
+    return uncompleted
+
+
+def GetWithDueDate(reminders):
+
+    withDueDate = [
+        reminder for reminder in reminders if "dueDateComponents" in reminder
+    ]
+
+    return withDueDate
 
 
 if __name__ == "__main__":
 
-    ParseReminders()
+    reminders = ReadReminders()
+
+    completed = GetCompleted(reminders)
+
+    console.print(f"Completed: {len(completed)}")
+
+    completedPath = Path("completed.json")
+
+    with open(completedPath, "w") as file:
+
+        json.dump(completed, file, indent=4)
+
+    console.print(f"Completed reminders written to {completedPath}")
+
+    uncompleted = GetUnCompleted(reminders)
+
+    console.print(f"Uncompleted: {len(uncompleted)}")
+
+    uncompletedPath = Path("uncompleted.json")
+
+    with open(uncompletedPath, "w") as file:
+
+        json.dump(uncompleted, file, indent=4)
+
+    console.print(f"Uncompleted reminders written to {uncompletedPath}")
+
+    withDueDate = GetWithDueDate(uncompleted)
+
+    console.print(f"Uncompleted with due date: {len(withDueDate)}")
+
+    withDueDatePath = Path("withDueDate.json")
+
+    with open(withDueDatePath, "w") as file:
+
+        json.dump(withDueDate, file, indent=4)
+
+    console.print(f"Uncompleted reminders with due date written to {withDueDatePath}")
