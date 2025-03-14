@@ -76,6 +76,15 @@ def GetWithDueDate(reminders):
     return withDueDate
 
 
+def GetWithoutDueDate(reminders):
+
+    withoutDueDate = [
+        reminder for reminder in reminders if "dueDateComponents" not in reminder
+    ]
+
+    return withoutDueDate
+
+
 if __name__ == "__main__":
 
     reminders = ReadReminders()
@@ -115,3 +124,17 @@ if __name__ == "__main__":
         json.dump(withDueDate, file, indent=4)
 
     console.print(f"Uncompleted reminders with due date written to {withDueDatePath}")
+
+    withoutDueDate = GetWithoutDueDate(uncompleted)
+
+    console.print(f"Uncompleted without due date: {len(withoutDueDate)}")
+
+    withoutDueDatePath = Path("withoutDueDate.json")
+
+    with open(withoutDueDatePath, "w") as file:
+
+        json.dump(withoutDueDate, file, indent=4)
+
+    console.print(
+        f"Uncompleted reminders without due date written to {withoutDueDatePath}"
+    )
