@@ -58,8 +58,6 @@ struct DateComponentsJSON: Codable {
     }
 }
 
-// MARK: - Reminder Extractor
-
 class ReminderExtractor {
 
     let eventStore = EKEventStore()
@@ -93,7 +91,7 @@ class ReminderExtractor {
                 self.dispatchGroup.leave()
                 return
             }
-            for reminder in reminders {
+            for (index, reminder) in reminders.enumerated() {
                 if let jsonReminder = self.createReminderJSON(from: reminder) {
                     self.remindersJSON.append(jsonReminder)
                 }
@@ -158,6 +156,11 @@ class ReminderExtractor {
                 .appendingPathComponent("reminders.json")
             try data.write(to: fileURL)
             print("Reminders written to: \(fileURL.path)")
+
+            let total = remindersJSON.count
+            let complete = remindersJSON.filter { $0.isCompleted }.count
+            let incomplete = total - complete
+            print("Total reminders: \(total) (Complete: \(complete), Incomplete: \(incomplete))")
         } catch {
             print("Failed to write reminders to JSON: \(error)")
         }
