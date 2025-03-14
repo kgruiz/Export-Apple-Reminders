@@ -1,0 +1,132 @@
+\documentclass{article}
+\title{}
+\author{}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+\noindent
+\textbf{EventKit} / EKStructuredLocation
+
+\noindent
+Class
+
+\noindent
+\textbf{EKStructuredLocation}
+
+\noindent
+A class that specifies a geofence to activate the alarm of a calendar item.
+
+\noindent
+iOS 6.0+ | iPadOS 6.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\noindent
+\texttt{class EKStructuredLocation}
+
+\noindent
+\textbf{Overview}
+
+\noindent
+Use \texttt{init(title:)} to create a new structured location, then set it to the \texttt{structuredLocation} property of an \texttt{EKAlarm} object.
+
+\noindent
+\textbf{Topics}
+
+\noindent
+\textbf{Creating Structured Locations}
+
+\noindent
+\texttt{convenience init(title: String)}
+
+\noindent
+Creates a new structured location with the specified title.
+
+\noindent
+\texttt{convenience init(mapItem: MKMapItem)}
+
+\noindent
+Creates a new structured location with the specified map item.
+
+\noindent
+\textbf{Accessing Structured Location Properties}
+
+\noindent
+\texttt{var title: String?}
+
+\noindent
+The title of the location.
+
+\noindent
+\texttt{var geoLocation: CLLocation?}
+
+\noindent
+The core location.
+
+\noindent
+\texttt{var radius: Double}
+
+\noindent
+A minimum distance from the core location that would trigger the alarm or reminder.
+
+\noindent
+\textbf{Relationships}
+
+\noindent
+\textbf{Inherits From}
+
+\noindent
+\texttt{EKObject}
+
+\noindent
+\textbf{Conforms To}
+
+\noindent
+\texttt{CVarArg}
+
+\noindent
+\texttt{CustomDebugStringConvertible}
+
+\noindent
+\texttt{CustomStringConvertible}
+
+\noindent
+\texttt{Equatable}
+
+\noindent
+\texttt{Hashable}
+
+\noindent
+\texttt{NSCopying}
+
+\noindent
+\texttt{NSObjectProtocol}
+
+\noindent
+\textbf{See Also}
+
+\noindent
+\textbf{Alarms}
+
+\noindent
+\texttt{\symbol{128203} Setting an alarm}
+
+\noindent
+Alert users of events and reminders with an alarm.
+
+\noindent
+\texttt{class EKAlarm}
+
+\noindent
+A class that represents an alarm.
+
+\newpage
+\end{document}

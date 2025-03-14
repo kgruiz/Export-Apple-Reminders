@@ -1,0 +1,145 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+
+EventKit / EKCalendar
+
+Class
+
+\textbf{EKCalendar}
+
+A class that represents a calendar in EventKit.
+
+iOS 4.0+ | iPadOS 4.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\texttt{class EKCalendar}
+
+Mentioned in
+
+\begin{itemize}
+    \item Retrieving events and reminders
+\end{itemize}
+
+Overview
+
+Use the properties in this class to get attributes about a calendar, such as its title and type. Use the \texttt{init(for: eventStore:)} method to create a calendar object.
+
+Topics
+
+Creating Calendars
+
+\texttt{init(for: EKEntityType, eventStore: EKEventStore)}
+
+Creates a new calendar that can contain the given entity type.
+
+\texttt{init(eventStore: EKEventStore)}
+
+Creates and returns a calendar belonging to a specified event store.
+
+Deprecated
+
+Accessing Calendar Properties
+
+\texttt{enum EKCalendarType}
+
+Possible calendar types.
+
+\texttt{struct EKCalendarEventAvailabilityMask}
+
+A bitmask indicating the event availability settings that the calendar can support.
+
+\texttt{var allowsContentModifications: Bool}
+
+A Boolean value that indicates whether you can add, edit, and delete items in the calendar.
+
+\texttt{var cgColor: CGColor!}
+
+The calendar's color.
+
+\texttt{var color: NSColor!}
+
+The calendar's color.
+
+\texttt{var isImmutable: Bool}
+
+A Boolean value indicating whether the calendar's properties can be edited or deleted.
+
+\texttt{var title: String}
+
+The calendar's title.
+
+\texttt{var type: EKCalendarType}
+
+The calendar's type.
+
+\texttt{var allowedEntityTypes: EKEntityMask}
+
+The entity types this calendar can contain.
+
+\texttt{var source: EKSource!}
+
+The source object representing the account to which this calendar belongs.
+
+\texttt{var isSubscribed: Bool}
+
+A Boolean value indicating whether the calendar is a subscribed calendar.
+
+\texttt{var supportedEventAvailabilities: EKCalendarEventAvailabilityMask}
+
+The event availability settings supported by this calendar, as indicated by a bitmask.
+
+\texttt{var calendarIdentifier: String}
+
+A unique identifier for the calendar.
+
+\texttt{func DATETIME\_COMPONENTS\_DO\_NOT\_USE()}
+
+A deprecated function.
+
+Deprecated
+
+\texttt{func DATE\_COMPONENTS\_DO\_NOT\_USE()}
+
+A deprecated function.
+
+Deprecated
+
+Relationships
+
+Inherits From
+
+\texttt{EKObject}
+
+Conforms To
+
+\texttt{CVarArg}
+
+\texttt{CustomDebugStringConvertible}
+
+\texttt{CustomStringConvertible}
+
+\texttt{Equatable}
+
+\texttt{Hashable}
+
+\texttt{NSObjectProtocol}
+
+See Also
+
+Calendars
+
+\texttt{class EKParticipant}
+
+A class that represents person, group, or room invited to a calendar event.
+
+\end{document}

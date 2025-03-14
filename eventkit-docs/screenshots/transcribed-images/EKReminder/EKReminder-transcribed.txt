@@ -1,0 +1,113 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+
+EventKit / EKReminder
+
+Class
+
+\textbf{EKReminder}
+
+A class that represents a reminder in a calendar.
+
+iOS 6.0+ | iPadOS 6.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\texttt{class EKReminder}
+
+Mentioned in
+
+\includegraphics[width=0.05\textwidth]{placeholder.png} Creating events and reminders
+
+Overview
+
+Use the \texttt{init(eventStore:)} method to create a new reminder. Use the properties in the class to get and modify certain information about a reminder.
+
+Topics
+
+Creating a Reminder
+
+\texttt{init(eventStore: EKEventStore)}
+
+Creates and returns a new reminder in the given event store.
+
+Accessing Reminder Properties
+
+\texttt{enum EKReminderPriority}
+
+The priority of the reminder.
+
+\texttt{var priority: Int}
+
+The reminder's priority.
+
+\texttt{var startDateComponents: DateComponents?}
+
+The start date of the task.
+
+\texttt{var dueDateComponents: DateComponents?}
+
+The date by which the reminder should be completed.
+
+\texttt{var isCompleted: Bool}
+
+A Boolean value determining whether or not the reminder is marked completed.
+
+\texttt{var completionDate: Date?}
+
+The date on which the reminder was completed.
+
+Relationships
+
+Inherits From
+
+EKCalendarItem
+
+Conforms To
+
+CVarArg
+
+CustomDebugStringConvertible
+
+CustomStringConvertible
+
+Equatable
+
+Hashable
+
+NSObjectProtocol
+
+See Also
+
+Events and reminders
+
+\includegraphics[width=0.05\textwidth]{placeholder.png} Creating events and reminders
+
+Create and modify events and reminders in a person's database.
+
+\includegraphics[width=0.05\textwidth]{placeholder.png} Retrieving events and reminders
+
+Fetch events and reminders from the Calendar database.
+
+\includegraphics[width=0.05\textwidth]{placeholder.png} Updating with notifications
+
+Register for notifications about changes and keep your app up to date.
+
+\includegraphics[width=0.05\textwidth]{placeholder.png} Managing Location-Based Reminders
+
+Add, fetch, complete, remove, and sort location-based reminders in your app.
+
+\texttt{class EKEvent}
+
+A class that represents an event in a calendar.
+
+\end{document}
