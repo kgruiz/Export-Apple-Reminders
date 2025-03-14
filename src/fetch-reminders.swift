@@ -1,10 +1,70 @@
 import Foundation
 import EventKit
 
+// MARK: - JSON Structures
+
+struct ReminderJSON: Codable {
+    let calendarItemIdentifier: String
+    let calendarItemExternalIdentifier: String?
+    let calendarTitle: String?
+    let title: String?
+    let location: String?
+    let creationDate: Date?
+    let lastModifiedDate: Date?
+    let timeZoneIdentifier: String?
+    let url: String?
+    let notes: String?
+    let attendees: [String]?
+    let alarms: [AlarmJSON]?
+    let recurrenceRules: [RecurrenceRuleJSON]?
+    let priority: Int
+    let startDateComponents: DateComponentsJSON?
+    let dueDateComponents: DateComponentsJSON?
+    let isCompleted: Bool
+    let completionDate: Date?
+}
+
+struct AlarmJSON: Codable {
+    let absoluteDate: Date?
+    let relativeOffset: TimeInterval
+    let proximity: Int
+    let structuredLocationTitle: String?
+    let structuredLocationRadius: Double?
+}
+
+struct RecurrenceRuleJSON: Codable {
+    let frequency: Int
+    let interval: Int
+    let recurrenceEndDate: Date?
+    let occurrenceCount: Int?
+}
+
+// A helper struct to encode DateComponents
+struct DateComponentsJSON: Codable {
+    let year: Int?
+    let month: Int?
+    let day: Int?
+    let hour: Int?
+    let minute: Int?
+    let second: Int?
+
+    init(_ components: DateComponents) {
+        self.year = components.year
+        self.month = components.month
+        self.day = components.day
+        self.hour = components.hour
+        self.minute = components.minute
+        self.second = components.second
+    }
+}
+
+// MARK: - Reminder Extractor
+
 class ReminderExtractor {
 
     let eventStore = EKEventStore()
     let dispatchGroup = DispatchGroup()
+    var remindersJSON: [ReminderJSON] = []
 
     /// Requests full access to reminders and, if granted, fetches all reminders.
     func requestAccessAndFetchAllReminders() {
@@ -24,7 +84,7 @@ class ReminderExtractor {
         }
     }
 
-    /// Fetches all reminders (complete and incomplete) and prints all available attributes.
+    /// Fetches all reminders (complete and incomplete) and converts them to JSON-serializable objects.
     func fetchAllReminders() {
         let predicate = eventStore.predicateForReminders(in: nil)
         eventStore.fetchReminders(matching: predicate) { reminders in
@@ -34,115 +94,82 @@ class ReminderExtractor {
                 return
             }
             for reminder in reminders {
-                self.printReminderAttributes(reminder)
+                if let jsonReminder = self.createReminderJSON(from: reminder) {
+                    self.remindersJSON.append(jsonReminder)
+                }
             }
             self.dispatchGroup.leave()
         }
     }
 
-    /// Prints all accessible attributes for a given EKReminder.
-    func printReminderAttributes(_ reminder: EKReminder) {
-        print("========================================")
-        print("Calendar Item Identifier: \(reminder.calendarItemIdentifier)")
-        print("Calendar Item External Identifier: \(reminder.calendarItemExternalIdentifier ?? "N/A")")
-        // The 'uuid' property is unavailable on macOS; omitted.
-        if let calendar = reminder.calendar {
-            print("Calendar: \(calendar.title)")
-        } else {
-            print("Calendar: N/A")
+    /// Converts an EKReminder to a ReminderJSON object.
+    func createReminderJSON(from reminder: EKReminder) -> ReminderJSON? {
+        let calendarTitle = reminder.calendar?.title
+        let attendeesNames = reminder.attendees?.compactMap { $0.name }
+        let alarmsJSON: [AlarmJSON]? = reminder.alarms?.map { alarm in
+            let structuredTitle = alarm.structuredLocation?.title
+            let structuredRadius = alarm.structuredLocation?.radius
+            return AlarmJSON(absoluteDate: alarm.absoluteDate,
+                             relativeOffset: alarm.relativeOffset,
+                             proximity: alarm.proximity.rawValue,
+                             structuredLocationTitle: structuredTitle,
+                             structuredLocationRadius: structuredRadius)
         }
-        print("Title: \(reminder.title ?? "No Title")")
-        print("Location: \(reminder.location ?? "N/A")")
-        if let creationDate = reminder.creationDate {
-            print("Creation Date: \(creationDate)")
-        } else {
-            print("Creation Date: N/A")
+        let recurrenceRulesJSON: [RecurrenceRuleJSON]? = reminder.recurrenceRules?.map { rule in
+            let recurrenceEndDate = rule.recurrenceEnd?.endDate
+            let occurrenceCount = rule.recurrenceEnd?.occurrenceCount
+            return RecurrenceRuleJSON(frequency: rule.frequency.rawValue,
+                                      interval: rule.interval,
+                                      recurrenceEndDate: recurrenceEndDate,
+                                      occurrenceCount: occurrenceCount)
         }
-        if let lastModifiedDate = reminder.lastModifiedDate {
-            print("Last Modified Date: \(lastModifiedDate)")
-        } else {
-            print("Last Modified Date: N/A")
+
+        return ReminderJSON(
+            calendarItemIdentifier: reminder.calendarItemIdentifier,
+            calendarItemExternalIdentifier: reminder.calendarItemExternalIdentifier,
+            calendarTitle: calendarTitle,
+            title: reminder.title,
+            location: reminder.location,
+            creationDate: reminder.creationDate,
+            lastModifiedDate: reminder.lastModifiedDate,
+            timeZoneIdentifier: reminder.timeZone?.identifier,
+            url: reminder.url?.absoluteString,
+            notes: reminder.notes,
+            attendees: attendeesNames,
+            alarms: alarmsJSON,
+            recurrenceRules: recurrenceRulesJSON,
+            priority: reminder.priority,
+            startDateComponents: reminder.startDateComponents.map { DateComponentsJSON($0) },
+            dueDateComponents: reminder.dueDateComponents.map { DateComponentsJSON($0) },
+            isCompleted: reminder.isCompleted,
+            completionDate: reminder.completionDate
+        )
+    }
+
+    /// Writes the remindersJSON array to a JSON file in the current directory.
+    func writeRemindersToJSONFile() {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        encoder.dateEncodingStrategy = .iso8601
+
+        do {
+            let data = try encoder.encode(remindersJSON)
+            let fileURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+                .appendingPathComponent("reminders.json")
+            try data.write(to: fileURL)
+            print("Reminders written to: \(fileURL.path)")
+        } catch {
+            print("Failed to write reminders to JSON: \(error)")
         }
-        if let timeZone = reminder.timeZone {
-            print("Time Zone: \(timeZone.identifier)")
-        } else {
-            print("Time Zone: N/A")
-        }
-        if let url = reminder.url {
-            print("URL: \(url)")
-        } else {
-            print("URL: N/A")
-        }
-        print("Has Notes: \(reminder.hasNotes)")
-        print("Notes: \(reminder.notes ?? "N/A")")
-        print("Has Attendees: \(reminder.hasAttendees)")
-        if let attendees = reminder.attendees {
-            print("Attendees Count: \(attendees.count)")
-            for attendee in attendees {
-                print(" - Attendee: \(attendee.name ?? "Unknown")")
-            }
-        } else {
-            print("Attendees: N/A")
-        }
-        print("Has Alarms: \(reminder.hasAlarms)")
-        if let alarms = reminder.alarms {
-            print("Alarms Count: \(alarms.count)")
-            for alarm in alarms {
-                if let absoluteDate = alarm.absoluteDate {
-                    print(" - Alarm Absolute Date: \(absoluteDate)")
-                }
-                print(" - Relative Offset: \(alarm.relativeOffset)")
-                print(" - Proximity: \(alarm.proximity)")
-                if let structuredLocation = alarm.structuredLocation {
-                    print(" - Structured Location Title: \(structuredLocation.title ?? "N/A")")
-                    print(" - Radius: \(structuredLocation.radius)")
-                }
-            }
-        } else {
-            print("Alarms: N/A")
-        }
-        print("Has Recurrence Rules: \(reminder.hasRecurrenceRules)")
-        if let rules = reminder.recurrenceRules {
-            print("Recurrence Rules Count: \(rules.count)")
-            for rule in rules {
-                print(" - Frequency: \(rule.frequency)")
-                print(" - Interval: \(rule.interval)")
-                if let recurrenceEnd = rule.recurrenceEnd {
-                    if let endDate = recurrenceEnd.endDate {
-                        print(" - Recurrence Ends on: \(endDate)")
-                    } else {
-                        print(" - Occurrence Count: \(recurrenceEnd.occurrenceCount)")
-                    }
-                }
-            }
-        } else {
-            print("Recurrence Rules: N/A")
-        }
-        print("Priority: \(reminder.priority)")
-        if let startDateComponents = reminder.startDateComponents {
-            print("Start Date Components: \(startDateComponents)")
-        } else {
-            print("Start Date Components: N/A")
-        }
-        if let dueDateComponents = reminder.dueDateComponents {
-            print("Due Date Components: \(dueDateComponents)")
-        } else {
-            print("Due Date Components: N/A")
-        }
-        print("Is Completed: \(reminder.isCompleted)")
-        if let completionDate = reminder.completionDate {
-            print("Completion Date: \(completionDate)")
-        } else {
-            print("Completion Date: N/A")
-        }
-        print("========================================")
     }
 }
 
-// Create an instance and start the extraction process.
+// MARK: - Main Execution
+
 let extractor = ReminderExtractor()
 extractor.requestAccessAndFetchAllReminders()
 
-// Wait until asynchronous operations are complete, then exit.
+// Wait until asynchronous operations are complete, then write JSON and exit.
 extractor.dispatchGroup.wait()
+extractor.writeRemindersToJSONFile()
 exit(0)
