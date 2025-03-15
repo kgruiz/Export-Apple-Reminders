@@ -22,27 +22,25 @@ Your app must obtain permission from the person using the app before it can acce
 
 Your app should only request the access it needs to complete its tasks. You can request write-only access to events, which lets your app create new events but doesn't let it read any events or other calendar information, including events your app created. You can also request full access to either events or reminders, which lets your app create, view, edit, and delete data.
 
-\textbf{Note:} Your app can't request read-only access to either events or reminders. To read events or reminders from the event store, your app needs full access.
+\textbf{Note}
+
+Your app can't request read-only access to either events or reminders. To read events or reminders from the event store, your app needs full access.
 
 \section*{Connect to the event store}
 To receive event or reminder data, you must request access to an entity type after initializing the event store. To request access to reminders, use \texttt{requestFullAccessToRemindersWithCompletion:}. To request access to events, use \texttt{requestWriteOnlyAccessToEventsWithCompletion:} or \texttt{requestFullAccessToEventsWithCompletion:}, depending on the level of access your app needs.
 
 For example, to request full access to reminders, use the following:
 
-\bigskip
-\begin{tabular}{ll}
-Swift & Objective-C \\
-\hline
-\end{tabular}
-
 \begin{verbatim}
+Swift  Objective-C
+
 // Initialize the store.
-var store = EKEventStore()
+EKEventStore *store = [[EKEventStore alloc] init];
 
 // Request access to reminders.
-store.requestFullAccessToReminders { granted, error in
+[store requestFullAccessToRemindersWithCompletion: ^(BOOL granted, NSError *error) {
     // Handle the response to the request.
-}
+}];
 \end{verbatim}
 
 Releasing an event store instance before other EventKit objects may result in an error.
@@ -60,17 +58,21 @@ An iOS app must include in its Info.plist file the usage description keys for th
     \item \texttt{NSRemindersFullAccessUsageDescription}, if your app needs access to reminders.
 \end{itemize}
 
-\textbf{Important:}
+\textbf{Important}
+
 On iOS 17 or later, if your app doesn't include usage description keys, or only includes the older \texttt{NSCalendarsUsageDescription} key for describing events access, iOS automatically denies any access request.
 
 To access a person's calendar events or reminders through EventKit or EventKit UI, your app needs to include descriptions for the following if your app links to iOS 10 or later, and runs on iOS 10 through iOS 16:
+
 \begin{itemize}
     \item \texttt{NSCalendarsUsageDescription}, which is a fallback if your app runs on iOS 17 or later and doesn't include descriptions for \texttt{NSCalendarsWriteOnlyAccessUsageDescription} or \texttt{NSCalendarsFullAccessUsageDescription}.
     \item \texttt{NSRemindersUsageDescription}, which is a fallback if your app runs on iOS 17 or later and doesn't include a description for \texttt{NSRemindersFullAccessUsageDescription}.
     \item \texttt{NSContactsUsageDescription}, as EventKit UI may need to access Contacts data to choose the correct display name or avatar for a contact in a calendar.
 \end{itemize}
 
-\textbf{Warning:} If your app that's linked on iOS 10 through iOS 16 doesn't include these keys, your app crashes.
+\textbf{Warning}
+
+If your app that's linked on iOS 10 through iOS 16 doesn't include these keys, your app crashes.
 
 Because these keys provide access to the event store, they protect the person's privacy by only allowing access to this information if they explicitly grant permission in the app.
 
@@ -78,8 +80,10 @@ To access Calendar data, all sandboxed macOS apps must include the \texttt{com.a
 
 \section*{See Also}
 
-\subsection*{Essentials}
+\textbf{Essentials}
+
 \texttt{EKEventStore}
+
 An object that accesses a person's calendar events and reminders and supports the scheduling of new events.
 
 \newpage
