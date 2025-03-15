@@ -1,0 +1,77 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+
+\section*{Creating events and reminders}
+Create and modify events and reminders in a person's database.
+
+\section*{Overview}
+Once you have permission to access a person's Calendar and Reminder data, you can create, display, and edit events and reminders.
+
+\section*{Create Events}
+Create a new event with the \texttt{eventWithEventStore:} method of the \texttt{EKEvent} class.
+
+You can edit the details of a new event or an event you previously fetched from the Calendar database by setting the event's corresponding properties. Some of the details you can edit include:
+\begin{itemize}
+    \item The event's title with the \texttt{title} property.
+    \item The event's start and end dates with the \texttt{startDate} and \texttt{endDate} properties.
+    \item The calendar with which the event is associated with the \texttt{calendar} property.
+    \item The alarms associated with the event with the \texttt{alarms} property (see "Setting an alarm" for more details).
+    \item The event's recurrence rule, if it is a repeating event, with the \texttt{recurrenceRules} property (see "Creating a recurring event" for more details).
+\end{itemize}
+
+\textbf{Note:} In iOS, you have the option of letting users modify event data with the event view controllers provided in the EventKit UI framework. For information on how to use these event view controllers, see EventKit UI.
+
+\section*{Save and Delete Events}
+\textbf{Important:} If your app modifies a user's Calendar database, it must get confirmation from the user before doing so. An app should never modify the Calendar database without specific instruction from the user.
+
+Save your changes to the Calendar database with the \texttt{EKEventStore} method \texttt{saveEvent:span:commit:error:}. If you want to remove an event from the Calendar database, use the \texttt{EKEventStore} method \texttt{removeEvent:span:commit:error:}. Whether you are saving or removing an event, implementing the respective method automatically syncs your changes with the calendar the event belongs to (CalDAV, Exchange, and so on).
+
+If you are saving a recurring event, your changes can apply to all future occurrences of the event by specifying \texttt{EKSpanFutureEvents} for the span parameter of the \texttt{saveEvent:span:commit:error:} method. Likewise, you can remove all future occurrences of an event by specifying \texttt{EKSpanFutureEvents} for the span parameter of the \texttt{removeEvent:span:commit:error:} method.
+
+\textbf{Note:} If you pass NO to the commit parameter, make sure that you later invoke the \texttt{commit:} method to permanently save your changes.
+
+\section*{Create Reminders}
+Reminders are tasks that may be tied to a specific time or location. They are similar to calendar events, but can be marked complete and may not necessarily span an exact period of time.
+
+Because \texttt{EKReminder} inherits from \texttt{EKCalendarItem}, you can perform the same methods on a reminder as you would on an event, such as adding an alarm with \texttt{addAlarm:} or setting a recurrence rule with \texttt{addRecurrenceRule:}.
+
+\textbf{Important:} If your iOS app links on macOS and you need to access Reminders data, be sure to include the \texttt{NSRemindersUsageDescription} key in your Info.plist file.
+
+You can create reminders using the \texttt{reminderWithEventStore:} class method. The \texttt{title} and \texttt{calendar} properties are required. The calendar for a reminder is the list with which it is grouped.
+
+Like events, reminders can trigger time-based or location-based alarms to alert the user of a certain task. Read "Setting an Alarm" for more information on how to attach alarms to calendar items.
+
+\section*{Save and Delete Reminders}
+To save a reminder to the Calendar database, call the \texttt{saveReminder:commit:error:} method. To remove an event, call the \texttt{removeReminder:commit:error:} method. The \texttt{title} and \texttt{calendars} properties must explicitly be set before you save the reminder.
+
+\textbf{Note:} Just like when saving or removing events, make sure that if you pass NO to the commit parameter, you later invoke the \texttt{commit:} method to save your changes.
+
+\section*{Edit Reminders}
+To associate a start date or due date with a reminder, use the \texttt{startDateComponents} and \texttt{dueDateComponents} properties. To complete a reminder, set the completed property to YES, which automatically sets \texttt{completionDate} to the current date.
+
+\textbf{Important:} If your app modifies a user's Calendar database, it must get confirmation from the user before doing so. An app should never modify the Calendar database without specific instruction from the user.
+
+\section*{See Also}
+\subsection*{Events and reminders}
+\begin{itemize}
+    \item Retrieving events and reminders: Fetch events and reminders from the Calendar database.
+    \item Updating with notifications: Register for notifications about changes and keep your app up to date.
+    \item \{\} Managing Location-Based Reminders: Add, fetch, complete, remove, and sort location-based reminders in your app.
+\end{itemize}
+\subsection*{EKEvent}
+A class that represents an event in a calendar.
+\subsection*{EKReminder}
+A class that represents a reminder in a calendar.
+
+\end{document}

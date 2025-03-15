@@ -1,0 +1,89 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+
+EventKit / EKObject
+
+Class
+
+\textbf{EKObject}
+
+An abstract superclass for all EventKit classes that have persistent instances.
+
+IOS 13.0+ | iPadOS 13.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 6.0+
+
+\texttt{@interface EKObject : NSObject}
+
+Overview
+
+EKObject provides fine control when saving and restoring property settings. For example, you can find out if a persistent object was modified locally and whether it needs to be saved. If the object has changed in the event store since it was fetched, you can refresh the local copy by keeping local changes or by removing local changes. You can also roll back the object to the state when it was first fetched.
+
+Topics
+
+Saving and Restoring State
+
+\texttt{hasChanges}
+
+Returns whether this object or any of the objects it contains has uncommitted changes.
+
+\texttt{new}
+
+A Boolean value that indicates whether this object has ever been saved.
+
+\texttt{- refresh}
+
+Merges changes to this object with the latest saved values.
+
+\texttt{- reset}
+
+Returns this object to its saved state.
+
+\texttt{- rollback}
+
+Rolls back the property values of this object to its original state when it was first fetched.
+
+Relationships
+
+Inherits From
+
+\texttt{NSObject}
+
+Inherited By
+
+\texttt{EKAlarm}
+
+\texttt{EKCalendar}
+
+\texttt{EKCalendarItem}
+
+\texttt{EKParticipant}
+
+\texttt{EKRecurrenceRule}
+
+\texttt{EKSource}
+
+\texttt{EKStructuredLocation}
+
+See Also
+
+Common objects
+
+\texttt{EKCalendarItem}
+
+An abstract superclass for calendar events and reminders.
+
+\texttt{EKSource}
+
+An abstract superclass that represents the account a calendar belongs to.
+
+\end{document}

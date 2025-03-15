@@ -1,0 +1,334 @@
+\documentclass{article}
+\title{}
+\author{}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+\noindent
+\textbf{EventKit} / Managing Location-Based Reminders
+
+\noindent
+Sample Code
+
+\noindent
+\textbf{Managing Location-Based Reminders}
+
+\noindent
+Add, fetch, complete, remove, and sort location-based reminders in your app.
+
+\noindent
+\fbox{\begin{minipage}{0.3\textwidth}
+\textbf{Download}
+\end{minipage}}
+
+\noindent
+iOS 13.0+ | iPadOS 13.0+ | Xcode 12.0+
+
+\noindent
+\textbf{Overview}
+
+\noindent
+With the Reminders app, users can create reminders with attachments, and alarms based on time and location. When Location Services is turned on, users receive location-based reminders when entering or leaving a specified geographic area or geofence. This sample demonstrates how to add, fetch, complete, remove, and sort location-based reminders.
+
+\noindent
+\textbf{Provide a Purpose String}
+
+\noindent
+The sample first requests and receives authorization from the user before the app attempts to access their reminder data. It provides a purpose string or usage description that describes how the app intends to use the user's reminder data. It then adds the \texttt{NSRemindersUsageDescription} key to the app's Info.plist. The sample sets its value to a string that explains why the app needs access to reminder data. The system displays the string when prompting the user for authorization.
+
+\noindent
+\fbox{\begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
+\textbf{Important}
+
+\noindent
+This \texttt{NSRemindersUsageDescription} key is required for apps that access the user's reminder data. Apps crash when the key is absent.
+\end{minipage}}
+
+\noindent
+\textbf{Request Authorization}
+
+\noindent
+Set up your app to instantiate and use a single instance of \texttt{EKEventStore} that manages all reminder-related tasks. An \texttt{EKEventStore} object requires a significant amount of time to initialize and release. The user might add, remove, or update reminders while your app is running. Register for an \texttt{EKEventStoreChanged} notification to be notified about changes to the Calendar database. When you receive this notification, refresh all your reminder data. It's possible that your current data is stale or invalid. For more information on change notification, see \textit{Updating with Notifications} for details.
+
+\noindent
+The user grants or denies permission when apps request access to their reminder data. Because the user can change the app's authorization status later in the Settings app (Settings $>$ Privacy $>$ Reminders) on their device, the sample calls \texttt{EKEventStore}'s \texttt{authorizationStatus(for:)} with a \texttt{EKEntityType.reminder} entity type before attempting to access their reminder data.
+
+\noindent
+\texttt{guard EKEventStore.authorizationStatus(for: .reminder) == .notDetermined else \{}
+
+\noindent
+\texttt{// The user may have already granted, denied, or restricted access to Reminders.}
+
+\noindent
+\texttt{verifyAuthorizationStatus()}
+
+\noindent
+\texttt{return}
+
+\noindent
+\texttt{\}}
+
+\noindent
+If the authorization status is \texttt{.notDetermined}, create an instance of \texttt{EKEventStore}, then store a strong reference to it.
+
+\noindent
+\texttt{private var store = EKEventStore()}
+
+\noindent
+Next, call its \texttt{requestAccess(to:completion:)} method to prompt the user for access.
+
+\noindent
+\texttt{store.requestAccess(to: .reminder, completion: \{(granted, error) in}
+
+\noindent
+\texttt{if granted \{ self.accessGranted() \}}
+
+\noindent
+\texttt{\})}
+
+\noindent
+The system remembers the user's answer, so that subsequent calls to \texttt{requestAccess(to:completion:)} don't again prompt the user. For more information on user's reminder data access, see \textit{Accessing the Event Store}.
+
+\noindent
+\textbf{Map Annotations}
+
+\noindent
+The sample app uses the current user location and location-specific data saved in the MapData.plist file to create annotations for the map. It defines a MapData data type to represent each point of interest. MapData.plist contains three MapData entries. To test reminders around other locations, duplicate and update a Map Data entry in MapData.plist with other data as needed.
+
+\noindent
+\fbox{\begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
+\textbf{Important}
+
+\noindent
+Creating location-based reminders doesn't require location services. The sample app uses location services to display the user's current location on the map. As such, it includes and configures the \texttt{NSLocationWhenInUseUsageDescription} key in its Info.plist. This key is required for apps that access the user's location services. For more information on user's location services access, see \textit{Requesting Authorization for Location Services}.
+\end{minipage}}
+
+\noindent
+\textbf{Check for the Existence of a Default List}
+
+\noindent
+Creating a reminder requires a list, which is a calendar for these items. Use \texttt{EKEventStore}'s \texttt{defaultCalendarForNewReminders} to check whether the user has specified a default list for reminders. If \texttt{defaultCalendarForNewReminders()} returns no value, prompt the user to create a list in the Reminders app or provide a mechanism that lets them create it from within the app. The app provides an Add List button that allows users to create a new list.
+
+\noindent
+\textbf{Create Location-Based Reminders}
+
+\noindent
+A location-based reminder is a reminder created with a geofence-enabled alarm. A geofence-enabled alarm has a structured location and proximity configured. The structured location consists of a location object and radius. The \texttt{radius} is defined in meters and uses the system's default radius when its value is 0. When the user provides a value for \texttt{radius} in a unit other than meters such as miles, convert this value before using it. The sample uses the following steps to create a location-based reminder.
+
+\noindent
+First, it creates an \texttt{EKReminder} object using \texttt{init(eventStore:)}, then it sets its \texttt{title} and \texttt{calendar} properties:
+
+\noindent
+\texttt{guard let calendar = store.defaultCalendarForNewReminders() else \{ throw LocationBaseError.noCalendar \}}
+
+\noindent
+\texttt{let reminder = EKReminder(eventStore: store)}
+
+\noindent
+\texttt{reminder.calendar = calendar}
+
+\noindent
+\texttt{reminder.title = title}
+
+\noindent
+\fbox{\begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
+\textbf{Important}
+
+\noindent
+The title and calendar properties are required and must be set before saving the reminder.
+\end{minipage}}
+
+\noindent
+Next, it creates a structured location by using either \texttt{EKStructuredLocation}'s \texttt{init(title:)} or \texttt{init(mapItem:)}. When the location object has latitude and longitude coordinates, it uses \texttt{init(title:)} to create the structured location. The sample initializes an \texttt{CLLocation} object with the specified latitude and longitude, then assigns it to the created structured location's \texttt{geolocation} property:
+
+\noindent
+\texttt{let structuredLocation = EKStructuredLocation(title: geofence.title)}
+
+\noindent
+\texttt{structuredLocation.geolocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)}
+
+\noindent
+When the location object is an \texttt{MKMapItem} object, the sample uses \texttt{init(mapItem:)} to create the structured location:
+
+\noindent
+\texttt{let structuredLocation = EKStructuredLocation(mapItem: mapItem)}
+
+\noindent
+Then, it sets the structured location's \texttt{radius} property to a value in meters:
+
+\noindent
+\texttt{// The app displays the radius's value in miles. Let's convert it from miles to meter}
+
+\noindent
+\texttt{structuredLocation.radius = 1609.344 * geofence.radius}
+
+\noindent
+After that, it creates an \texttt{EKAlarm} object, then sets its \texttt{structuredLocation} property to the created structured location object. The sample then sets the \texttt{proximity} property to a value to finish configuring the alarm's geofence:
+
+\noindent
+\texttt{let alarm = EKAlarm()}
+
+\noindent
+\texttt{alarm.structuredLocation = structuredLocation}
+
+\noindent
+\texttt{alarm.proximity = geofence.proximity}
+
+\noindent
+The sample adds the created alarm to the reminder. For more information on adding alarms, see \textit{Setting an Alarm}.
+
+\noindent
+\texttt{reminder.addAlarm(alarm)}
+
+\noindent
+Finally, it saves the reminder to the user's Calendar database:
+
+\noindent
+\texttt{do \{}
+
+\noindent
+\texttt{try store.save(reminder, commit: true)}
+
+\noindent
+\texttt{\} catch \{}
+
+\noindent
+\texttt{handleError(error, with: reminder.title)}
+
+\noindent
+\texttt{\}}
+
+\noindent
+\textbf{Fetch Location-Based Reminders}
+
+\noindent
+The \texttt{fetchReminders(matching:completion:)} method asynchronously fetches all reminders matching a given predicate. When successful, \texttt{fetchReminders(matching:completion:)} returns an array that contains both time-based and location-based reminders.
+
+\noindent
+\texttt{// Predicate that fetches all reminders in all of the user's calendars.}
+
+\noindent
+\texttt{let predicate = store.predicateForReminders(in: nil)}
+
+\noindent
+\texttt{var result = [EKReminder]()}
+
+\noindent
+\texttt{store.fetchReminders(matching: predicate, completion: \{(reminders: [Any]?) in}
+
+\noindent
+\texttt{if let reminders = reminders as? [EKReminder] \{}
+
+\noindent
+\texttt{// Filter reminders for the location ones.}
+
+\noindent
+\texttt{result = reminders.filter\{ (item: EKReminder) in item.isLocation \}}
+
+\noindent
+\texttt{\}}
+
+\noindent
+\texttt{DispatchQueue.main.async \{}
+
+\noindent
+\texttt{completion(result)}
+
+\noindent
+\texttt{\}}
+
+\noindent
+\texttt{\})}
+
+\noindent
+To retrieve location-based reminders, the sample parses this array for reminders defined with an existing alarm that has a \texttt{structuredLocation} and \texttt{proximity} value.
+
+\noindent
+\texttt{/// Indicates whether a reminder is a location-based one.}
+
+\noindent
+\texttt{var isLocation: Bool \{}
+
+\noindent
+\texttt{guard let alarms = self.alarms else \{ return false \}}
+
+\noindent
+\texttt{return alarms.filter\{((alarm: EKAlarm) in}
+
+\noindent
+\texttt{return (alarm.structuredLocation != nil) \&\& ((alarm.proximity == .enter) || (alarm.proximity == .exit)))}
+
+\noindent
+\texttt{\}).isEmpty}
+
+\noindent
+\texttt{\}}
+
+\noindent
+\textbf{Sort Reminders}
+
+\noindent
+Retrieving reminders from the Calendar database returns reminders sorted by creation date. To sort an array of \texttt{EKReminder} objects by title, or any other property, the sample implements \texttt{sorted(by:)} on the array with a predicate that uses the property.
+
+\noindent
+\texttt{/// - Returns: An array of reminders sorted by title in an ascending order.}
+
+\noindent
+\texttt{func sortedByTitle() -> [EKReminder] \{}
+
+\noindent
+\texttt{return self.sorted(by: \{ (first: EKReminder, second: EKReminder) in}
+
+\noindent
+\texttt{first.title.localizedCaseInsensitiveCompare(second.title) == .orderedAscending)}
+
+\noindent
+\texttt{\})}
+
+\noindent
+\textbf{See Also}
+
+\noindent
+\textbf{Events and reminders}
+
+\noindent
+\includegraphics[width=0.3\textwidth]{./placeholder.png} \textit{Creating events and reminders}
+
+\noindent
+Create and modify events and reminders in a person's database.
+
+\noindent
+\includegraphics[width=0.3\textwidth]{./placeholder.png} \textit{Retrieving events and reminders}
+
+\noindent
+Fetch events and reminders from the Calendar database.
+
+\noindent
+\includegraphics[width=0.3\textwidth]{./placeholder.png} \textit{Updating with notifications}
+
+\noindent
+Register for notifications about changes and keep your app up to date.
+
+\noindent
+\texttt{class EKEvent}
+
+\noindent
+A class that represents an event in a calendar.
+
+\noindent
+\texttt{class EKReminder}
+
+\noindent
+A class that represents a reminder in a calendar.
+\newpage
+\end{document}

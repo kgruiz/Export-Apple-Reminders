@@ -1,0 +1,74 @@
+\documentclass{article}
+\title{}
+\author{}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+EventKit / EKVirtualConferenceRoomTypeDescriptor
+
+Class
+
+\textbf{EKVirtualConferenceRoomTypeDescriptor}
+
+Details about a room where virtual conferences take place.
+
+iOS 15.0+ | iPadOS 15.0+ | Mac Catalyst 15.0+ | macOS 12.0+ | visionOS 1.0+ | watchOS 8.0+
+
+\texttt{@interface EKVirtualConferenceRoomTypeDescriptor : NSObject}
+
+\textbf{Overview}
+
+To present a list of rooms where a virtual conference takes place, your virtual conference provider creates one or more room type descriptors. Each descriptor contains a user-visible title and an identifier of your choosing. When users create events using one of the rooms you provide, EventKit calls \texttt{fetchVirtualConferenceForIdentifier:completionHandler:} and passes the room's identifier.
+
+\textbf{Topics}
+
+\textbf{Creating Room Type Descriptors}
+
+\texttt{- initWithTitle:identifier:}
+
+Creates an object that describes a location where a virtual conference takes place.
+
+\textbf{Configuring Room Type Descriptors}
+
+\texttt{title}
+
+The user-visible name of a room where virtual conferences take place, such as Personal Room or Team Room.
+
+\texttt{identifier}
+
+A unique string you choose that identifies the room.
+
+\texttt{EKVirtualConferenceRoomTypeIdentifier}
+
+The type for a room type identifier.
+
+\textbf{Relationships}
+
+\textbf{Inherits From}
+
+\texttt{NSObject}
+
+\textbf{See Also}
+
+\textbf{Virtual conferences}
+
+\texttt{EKVirtualConferenceProvider}
+
+An object that associates virtual conferencing details with an event object in a user's calendar.
+
+\texttt{EKVirtualConferenceDescriptor}
+
+Details about a virtual conference that uses a custom room type.
+
+\newpage
+\end{document}

@@ -1,0 +1,191 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+
+EventKit / EKErrorCode
+
+Enumeration
+
+\textbf{EKErrorCode}
+
+Error codes for EventKit errors.
+
+iOS | iPadOS | Mac Catalyst | macOS | visionOS | watchOS
+
+\texttt{enum EKErrorCode: NSInteger;}
+
+Topics
+
+Constants
+
+\textbf{EKErrorEventNotMutable}
+
+The event isn't mutable and you can't save or delete it.
+
+\textbf{EKErrorNoCalendar}
+
+The event isn't associated with a calendar.
+
+\textbf{EKErrorNoStartDate}
+
+The event has no start date set.
+
+\textbf{EKErrorNoEndDate}
+
+The event has no end date set.
+
+\textbf{EKErrorDatesInverted}
+
+The event's end date occurs before its start date.
+
+\textbf{EKErrorInternalFailure}
+
+An internal error occurred.
+
+\textbf{EKErrorCalendarReadOnly}
+
+The calendar is read-only and you can't add events to it.
+
+\textbf{EKErrorDurationGreaterThanRecurrence}
+
+The duration of an event is greater than its recurrence interval.
+
+\textbf{EKErrorAlarmGreaterThanRecurrence}
+
+The alarm interval is greater than the recurrence interval.
+
+\textbf{EKErrorStartDateTooFarInFuture}
+
+The start date is further into the future than the calendar can display.
+
+\textbf{EKErrorStartDateCollidesWithOtherOccurrence}
+
+The event's start date collides with another occurrence of the event.
+
+\textbf{EKErrorObjectBelongsToDifferentStore}
+
+The object belongs to a different calendar store.
+
+\textbf{EKErrorInvitesCannotBeMoved}
+
+You can't move the event because it's an invitation.
+
+\textbf{EKErrorInvalidSpan}
+
+The system encountered an invalid span during a save or deletion.
+
+\textbf{EKErrorCalendarHasNoSource}
+
+You can't save the calendar without setting a source first.
+
+\textbf{EKErrorCalendarSourceCannotBeModified}
+
+You can't move the calendar to another source.
+
+\textbf{EKErrorCalendarIsImmutable}
+
+The calendar is immutable and you can't modify or delete it.
+
+\textbf{EKErrorSourceDoesNotAllowCalendarAddDelete}
+
+The source doesn't allow you to add or delete calendars.
+
+\textbf{EKErrorRecurringReminderRequiresDueDate}
+
+The recurring reminder requires a due date.
+
+\textbf{EKErrorStructuredLocationsNotSupported}
+
+The source to which this calendar belongs doesn't support structured locations.
+
+\textbf{EKErrorReminderLocationsNotSupported}
+
+The source doesn't support locations on reminders.
+
+\textbf{EKErrorAlarmProximityNotSupported}
+
+The source doesn't allow geofences on alarms.
+
+\textbf{EKErrorCalendarDoesNotAllowEvents}
+
+The calendar doesn't allow you to add events.
+
+\textbf{EKErrorCalendarDoesNotAllowReminders}
+
+The calendar doesn't allow you to add reminders.
+
+\textbf{EKErrorSourceDoesNotAllowReminders}
+
+The source doesn't allow calendars supporting reminder entity types.
+
+\textbf{EKErrorSourceDoesNotAllowEvents}
+
+The source doesn't allow calendars supporting event entity types.
+
+\textbf{EKErrorPriorityIsInvalid}
+
+The priority number for the reminder is invalid.
+
+\textbf{EKErrorInvalidEntityType}
+
+The entity type is invalid.
+
+\textbf{EKErrorProcedureAlarmsNotMutable}
+
+You can't create or modify procedure alarms.
+
+\textbf{EKErrorEventStoreNotAuthorized}
+
+The user hasn't authorized your app to access events or reminders.
+
+\textbf{EKErrorOSNotSupported}
+
+The action isn't supported on the current operating system.
+
+\textbf{EKErrorInvalidInviteReplyCalendar}
+
+The calendar is invalid or nil.
+
+\textbf{EKErrorNotificationsCollectionFlagNotSet}
+
+The notification collection doesn't have the notifications collection flag.
+
+\textbf{EKErrorSourceMismatch}
+
+The object's source doesn't match its container's source.
+
+\textbf{EKErrorNotificationCollectionMismatch}
+
+The notification collection that contains this notification doesn't match the collection the system is trying to save.
+
+\textbf{EKErrorNotificationSavedWithoutCollection}
+
+The notification can't save because you haven't added it to a notification collection and saved the collection first.
+
+\textbf{EKErrorLast}
+
+This error is for internal use.
+
+Enumeration Cases
+
+\textbf{EKErrorReminderAlarmContainsEmail0rUrl}
+
+See Also
+
+Errors
+
+\textbf{EKErrorDomain}
+
+A string that identifies the EventKit error domain.
+
+\end{document}

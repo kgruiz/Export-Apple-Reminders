@@ -1,0 +1,79 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+EventKit / EKStructuredLocation
+
+Class
+
+\textbf{EKStructuredLocation}
+
+A class that specifies a geofence to activate the alarm of a calendar item.
+
+iOS 6.0+ | iPadOS 6.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\texttt{@interface EKStructuredLocation : EKObject}
+
+Overview
+
+Use \texttt{locationWithTitle:} to create a new structured location, then set it to the \texttt{structuredLocation} property of an \texttt{EKAlarm} object.
+
+Topics
+
+Creating Structured Locations
+
++ \texttt{locationWithTitle:}
+
+Creates a new structured location with the specified title.
+
++ \texttt{locationWithMapItem:}
+
+Creates a new structured location with the specified map item.
+
+Accessing Structured Location Properties
+
+\texttt{title}
+
+The title of the location.
+
+\texttt{geoLocation}
+
+The core location.
+
+\texttt{radius}
+
+A minimum distance from the core location that would trigger the alarm or reminder.
+
+Relationships
+
+Inherits From
+
+\texttt{EKObject}
+
+Conforms To
+
+\texttt{NSCopying}
+
+See Also
+
+Alarms
+
+\begin{itemize}
+    \item Setting an alarm\\
+    Alert users of events and reminders with an alarm.
+\end{itemize}
+
+\texttt{EKAlarm}
+
+A class that represents an alarm.
+
+\end{document}

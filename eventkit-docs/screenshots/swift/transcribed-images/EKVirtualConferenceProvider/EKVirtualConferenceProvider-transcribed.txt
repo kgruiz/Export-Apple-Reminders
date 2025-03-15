@@ -1,0 +1,104 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+
+EventKit / EKVirtualConferenceProvider
+
+Class
+
+\textbf{EKVirtualConferenceProvider}
+
+An object that associates virtual conferencing details with an event object in a user's calendar.
+
+iOS 15.0+ | iPadOS 15.0+ | Mac Catalyst 15.0+ | macOS 12.0+ | visionOS 1.0+ | watchOS 8.0+
+
+\texttt{class EKVirtualConferenceProvider}
+
+\textbf{Overview}
+
+\texttt{EKVirtualConferenceProvider} lets apps that offer virtual conferencing services to integrate directly with events in users' calendars. To add this support to your app, add a virtual conference extension. The principal class of the app extension is a custom subclass of \texttt{EKVirtualConferenceProvider} that you create that provides the following:
+
+\begin{itemize}
+\item A list of room types where events take place, such as Personal Room or Team Room
+\item A descriptor for a virtual conference, including a user-visible title, one or more URLs, and additional details
+\end{itemize}
+
+\textbf{Providing Room Details}
+
+To provide a list of rooms, you provide one or more \textit{room type descriptors} that contain details about where a virtual conference takes place. Each room type descriptor includes a user-visible title and an identifier that you choose. EventKit calls \texttt{fetchAvailableRoomTypes(completionHandler:)} on your virtual conference provider to retrieve an array of \texttt{EKVirtualConferenceRoomTypeDescriptor} objects.
+
+\textbf{Providing Conference Details}
+
+After EventKit has the room type descriptors, users can add an event that specifies one of your rooms as the location. To identify the virtual conference event, your virtual conference provider creates a \textit{virtual conference descriptor} that contains details about the virtual conference. The conference descriptor contains the following:
+
+\begin{itemize}
+\item One or more \texttt{EKVirtualConferenceURLDescriptor} objects to specify how the user joins the virtual conference
+\item An optional user-visible title that EventKit may display
+\item An optional user-visible string with details about the virtual conference that EventKit displays
+\end{itemize}
+
+EventKit calls \texttt{fetchVirtualConference(identifier: completionHandler:)} on your virtual conference provider to retrieve an instance of \texttt{EKVirtualConferenceDescriptor}.
+
+\textbf{Important}
+
+Events that use your virtual conference descriptors may sync to other devices where your app isn't installed. To support links to your virtual conference regardless of whether your app is installed, adopt universal links in your app. Universal links let you specify HTTP URLs that open your app if it's installed or open a corresponding web page if it's not. For more information about adopting universal links in your app, see Supporting universal links in your app.
+
+\textbf{Topics}
+
+\textbf{Providing Rooms}
+
+\texttt{func fetchAvailableRoomTypes (completionHandler: ([EKVirtualConferenceRoomTypeDescriptor]?, (any Error)?) -> Void)}
+
+Provides an array of room types where events take place.
+
+\textbf{Providing Virtual Conferences}
+
+\texttt{func fetchVirtualConference (identifier: EKVirtualConferenceRoomTypeIdentifier, completionHandler: (EKVirtualConferenceDescriptor?, (any Error)?) -> Void)}
+
+Provides details about a virtual conference that takes place in a room the user selects.
+
+\textbf{Relationships}
+
+\textbf{Inherits From}
+
+\texttt{NSObject}
+
+\textbf{Conforms To}
+
+\texttt{CVarArg}
+
+\texttt{CustomDebugStringConvertible}
+
+\texttt{CustomStringConvertible}
+
+\texttt{Equatable}
+
+\texttt{Hashable}
+
+\texttt{NSExtensionRequestHandling}
+
+\texttt{NSObjectProtocol}
+
+\textbf{See Also}
+
+\textbf{Virtual conferences}
+
+\texttt{class EKVirtualConferenceDescriptor}
+
+Details about a virtual conference that uses a custom room type.
+
+\texttt{class EKVirtualConferenceRoomTypeDescriptor}
+
+Details about a room where virtual conferences take place.
+
+\end{document}

@@ -1,0 +1,90 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+EventKit / EKSource
+
+Class
+
+\textbf{EKSource}
+
+An abstract superclass that represents the account a calendar belongs to.
+
+iOS 5.0+ | iPadOS 5.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\texttt{@interface EKSource : EKObject}
+
+Overview
+
+You do not create instances of this class; instead, you retrieve \texttt{EKSource} objects from an \texttt{EKEventStore} object. Use the \texttt{sources} property to get all the \texttt{EKSource} objects for an event store, and use the methods in this class to access properties of the source object.
+
+Topics
+
+Accessing Source Properties
+
+\texttt{EKSourceType}
+
+The type of source object.
+
+\texttt{sourceIdentifier}
+
+A unique identifier for the source object.
+
+\texttt{sourceType}
+
+The type of this source object.
+
+\texttt{title}
+
+The name of this source object.
+
+Accessing Calendars
+
+\texttt{- calendarsForEntityType:}
+
+Returns the calendars that belong to this source object that support a particular entity type.
+
+\texttt{calendars}
+
+The calendars that belong to this source object.
+
+\textit{Deprecated}
+
+Entity Type
+
+\texttt{EKEntityType}
+
+The type of entities allowed for a source.
+
+Instance Properties
+
+\texttt{isDelegate}
+
+Relationships
+
+Inherits From
+
+\texttt{EKObject}
+
+See Also
+
+Common objects
+
+\texttt{EKCalendarItem}
+
+An abstract superclass for calendar events and reminders.
+
+\texttt{EKObject}
+
+An abstract superclass for all EventKit classes that have persistent instances.
+
+\end{document}

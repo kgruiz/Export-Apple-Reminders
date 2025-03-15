@@ -1,0 +1,110 @@
+\documentclass{article}
+\title{}
+\author{}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+EventKit / EKReminder
+
+Class
+
+\textbf{EKReminder}
+
+A class that represents a reminder in a calendar.
+
+iOS 6.0+ | iPadOS 6.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\texttt{@interface EKReminder : EKCalendarItem}
+
+Mentioned in
+
+\begin{itemize}
+    \item Creating events and reminders
+\end{itemize}
+
+Overview
+
+Use the \texttt{reminderWithEventStore:} method to create a new reminder. Use the properties in the class to get and modify certain information about a reminder.
+
+Topics
+
+Creating a Reminder
+
+\begin{itemize}
+\item[+] \texttt{reminderWithEventStore:}
+\begin{itemize}
+    \item Creates and returns a new reminder in the given event store.
+\end{itemize}
+\end{itemize}
+
+Accessing Reminder Properties
+
+\texttt{EKReminderPriority}
+
+The priority of the reminder.
+
+\texttt{priority}
+
+The reminder's priority.
+
+\texttt{startDateComponents}
+
+The start date of the task.
+
+\texttt{dueDateComponents}
+
+The date by which the reminder should be completed.
+
+\texttt{completed}
+
+A Boolean value determining whether or not the reminder is marked completed.
+
+\texttt{completionDate}
+
+The date on which the reminder was completed.
+
+Relationships
+
+Inherits From
+
+\texttt{EKCalendarItem}
+
+See Also
+
+Events and reminders
+
+\begin{itemize}
+    \item Creating events and reminders
+    \begin{itemize}
+        \item Create and modify events and reminders in a person's database.
+    \end{itemize}
+    \item Retrieving events and reminders
+    \begin{itemize}
+        \item Fetch events and reminders from the Calendar database.
+    \end{itemize}
+    \item Updating with notifications
+    \begin{itemize}
+        \item Register for notifications about changes and keep your app up to date.
+    \end{itemize}
+    \item Managing Location-Based Reminders
+    \begin{itemize}
+        \item Add, fetch, complete, remove, and sort location-based reminders in your app.
+    \end{itemize}
+\end{itemize}
+
+\texttt{EKEvent}
+
+A class that represents an event in a calendar.
+
+\newpage
+\end{document}

@@ -1,0 +1,147 @@
+\documentclass{article}
+\title{}
+\author{}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+EventKit / EKReminder
+
+Class
+
+\textbf{EKReminder}
+
+A class that represents a reminder in a calendar.
+
+iOS 6.0+ | iPadOS 6.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\texttt{class EKReminder}
+
+Mentioned in
+
+Creating events and reminders
+
+Overview
+
+Use the \texttt{init(eventStore:)} method to create a new reminder. Use the properties in the class to get and modify certain information about a reminder.
+
+Topics
+
+Creating a Reminder
+
+\texttt{init(eventStore: EKEventStore)}
+
+Creates and returns a new reminder in the given event store.
+
+Accessing Reminder Properties
+
+\texttt{enum EKReminderPriority}
+
+The priority of the reminder.
+
+\texttt{var priority: Int}
+
+The reminder's priority.
+
+\texttt{var startDateComponents: DateComponents?}
+
+The start date of the task.
+
+\texttt{var dueDateComponents: DateComponents?}
+
+The date by which the reminder should be completed.
+
+\texttt{var isCompleted: Bool}
+
+A Boolean value determining whether or not the reminder is marked completed.
+
+\texttt{var completionDate: Date?}
+
+The date on which the reminder was completed.
+
+Relationships
+
+Inherits From
+
+\texttt{EKCalendarItem}
+
+Conforms To
+
+\texttt{CVarArg}
+
+\texttt{CustomDebugStringConvertible}
+
+\texttt{CustomStringConvertible}
+
+\texttt{Equatable}
+
+\texttt{Hashable}
+
+\texttt{NSObjectProtocol}
+
+See Also
+
+Events and reminders
+
+Creating events and reminders
+
+Create and modify events and reminders in a person's database.
+
+Retrieving events and reminders
+
+Fetch events and reminders from the Calendar database.
+
+Updating with notifications
+
+Register for notifications about changes and keep your app up to date.
+
+\{\} Managing Location-Based Reminders
+
+Add, fetch, complete, remove, and sort location-based reminders in your app.
+
+\texttt{class EKEvent}
+
+A class that represents an event in a calendar.
+
+Developer Documentation
+
+Platforms & Topics \& Technologies & Resources & Programs \\
+ios & Accessibility & Documentation & Apple Developer Program \\
+iPadOS & Accessories & Tutorials & Apple Developer Enterprise Program \\
+macOS & App Extension & Downloads & App Store Small Business Program \\
+tvOS & App Store & Forums & MFi Program \\
+visionOS & Audio \& Video & Videos & News Partner Program \\
+watchOS & Augmented Reality & Support & Video Partner Program \\
+Tools & Design & Support Articles & Security Bounty Program \\
+Swift & Distribution & Contact Us & Security Research Device Program \\
+SwiftUI & Education & Bug Reporting &  \\
+Swift Playground & Fonts & System Status & Events \\
+TestFlight & Games & Account & Meet with Apple \\
+Xcode & Health \& Fitness & Apple Developer & Apple Developer Centers \\
+Xcode Cloud & In-App Purchase & App Store Connect & App Store Awards \\
+SF Symbols & Localization & Certificates, IDs, \& Profiles & Apple Design Awards \\
+ & Maps \& Location & Feedback Assistant & Apple Developer Academies \\
+ & Machine Learning &  & WWDC \\
+ & Open Source &  &  \\
+ & Security &  &  \\
+ & Safari \& Web &  &  \\
+
+To submit feedback on documentation, visit Feedback Assistant.
+
+Light Dark Auto
+
+Copyright \copyright 2025 Apple Inc. All rights reserved. Terms of Use Privacy Policy Agreements and Guidelines
+
+Language: Swift
+
+\newpage
+\end{document}

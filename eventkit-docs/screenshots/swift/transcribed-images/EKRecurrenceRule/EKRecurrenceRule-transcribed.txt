@@ -1,0 +1,151 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+EventKit / EKRecurrenceRule
+
+Class
+
+\textbf{EKRecurrenceRule}
+
+A class that describes the pattern for a recurring event.
+
+IOS 4.0+ $|$ iPadOS 4.0+ $|$ Mac Catalyst 13.1+ $|$ macOS 10.8+ $|$ visionOS 1.0+ $|$ watchOS 2.0+
+
+\texttt{class EKRecurrenceRule}
+
+Mentioned in
+
+Creating a recurring event
+
+Overview
+
+After you create a recurrence rule, assign it to an event with the method of \texttt{EKEvent}.
+
+Recurrence rules can have an end, represented by an \texttt{EKRecurrenceEnd} object. The end can be based on a specific date or a maximum number of occurrences.
+
+\textbf{Note}
+It is currently not possible to directly modify an \texttt{EKRecurrenceRule} or any of its properties. This functionality is achieved by creating a new \texttt{EKRecurrenceRule} and setting an event or reminder to use the newly created rule.
+
+Topics
+
+Creating a Basic Recurrence Rule
+
+\texttt{enum EKSpan}
+
+An object that indicates whether modifications should apply to a single event or all future events of a recurring event.
+
+\texttt{init(recurrenceWith: EKRecurrenceFrequency, interval: Int, end: EKRecurrenceEnd?)}
+
+Initializes and returns a simple recurrence rule with a given frequency, interval, and end.
+
+Creating a Complex Recurrence Rule
+
+\texttt{init(recurrenceWith: EKRecurrenceFrequency, interval: Int, daysOfTheWeek: [EKRecurrenceDayOfWeek]?, daysOfTheMonth: [NSNumber]?, monthsOfTheYear: [NSNumber]?, weeksOfTheYear: [NSNumber]?, daysOfTheYear: [NSNumber]?, setPositions: [NSNumber]?, end: EKRecurrenceEnd?)}
+
+Initializes and returns a recurrence rule with a given frequency and additional scheduling information.
+
+Accessing Recurrence Rule Properties
+
+\texttt{enum EKRecurrenceFrequency}
+
+The frequency for recurrence rules.
+
+\texttt{var calendarIdentifier: String}
+
+The identifier for the recurrence rule's calendar.
+
+\texttt{var recurrenceEnd: EKRecurrenceEnd?}
+
+Indicates when the recurrence rule ends.
+
+\texttt{var frequency: EKRecurrenceFrequency}
+
+The frequency of the recurrence rule.
+
+\texttt{var interval: Int}
+
+Specifies how often the recurrence rule repeats over the unit of time indicated by its frequency.
+
+\texttt{var firstDayOfTheWeek: Int}
+
+Indicates which day of the week the recurrence rule treats as the first day of the week.
+
+\texttt{var daysOfTheWeek: [EKRecurrenceDayOfWeek]?}
+
+The days of the week associated with the recurrence rule, as an array of \texttt{EKRecurrenceDayOfWeek} objects.
+
+\texttt{var daysOfTheMonth: [NSNumber]?}
+
+The days of the month associated with the recurrence rule, as an array of NSNumber objects.
+
+\texttt{var daysOfTheYear: [NSNumber]?}
+
+The days of the year associated with the recurrence rule, as an array of NSNumber objects.
+
+\texttt{var weeksOfTheYear: [NSNumber]?}
+
+The weeks of the year associated with the recurrence rule, as an array of NSNumber objects.
+
+\texttt{var monthsOfTheYear: [NSNumber]?}
+
+The months of the year associated with the recurrence rule, as an array of NSNumber objects.
+
+\texttt{var setPositions: [NSNumber]?}
+
+An array of ordinal numbers that filters which recurrences to include in the recurrence rule's frequency.
+
+\texttt{func EK\_LOSE\_FRACTIONAL\_SECONDS\_DO\_NOT\_USE()}
+
+\textbf{Deprecated}
+
+A deprecated function.
+
+Relationships
+
+Inherits From
+
+\texttt{EKObject}
+
+Conforms To
+
+\texttt{CVarArg}
+
+\texttt{CustomDebugStringConvertible}
+
+\texttt{CustomStringConvertible}
+
+\texttt{Equatable}
+
+\texttt{Hashable}
+
+\texttt{NSCopying}
+
+\texttt{NSObjectProtocol}
+
+See Also
+
+Recurrence
+
+Creating a recurring event
+
+Set up an event or reminder that repeats.
+
+class EKRecurrenceDayOfWeek
+
+A class that represents the day of the week.
+
+class EKRecurrenceEnd
+
+A class that defines the end of a recurrence rule.
+
+\end{document}

@@ -1,0 +1,112 @@
+\documentclass{article}
+\title{}
+\author{}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+EventKit / EKRecurrenceDayOfWeek
+
+Class
+
+\textbf{EKRecurrenceDayOfWeek}
+
+A class that represents the day of the week.
+
+iOS 4.0+ | iPadOS 4.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\texttt{class EKRecurrenceDayOfWeek}
+
+Mentioned in
+
+\textbf{Creating a recurring event}
+
+Overview
+
+The \texttt{EKRecurrenceDayOfWeek} class represents a day of the week for use with an \texttt{EKRecurrenceRule} object.
+
+A day of the week can optionally have a week number, indicating a specific day in the recurrence rule's frequency. For example, a day of the week with a day value of Tuesday and a week number of 2 would represent the second Tuesday of every month in a monthly recurrence rule, and the second Tuesday of every year in a yearly recurrence rule. A day of the week with a week number of 0 ignores its week number.
+
+Topics
+
+Creating a Day of the Week
+
+\texttt{enum EKWeekday}
+
+The day of the week.
+
+\texttt{convenience init(EKWeekday)}
+
+Creates and returns a day of the week with a given day.
+
+\texttt{convenience init(EKWeekday, weekNumber: Int)}
+
+Creates and returns an autoreleased day of the week with a given day and week number.
+
+\texttt{init(dayOfTheWeek: EKWeekday, weekNumber: Int)}
+
+Initializes and returns a day of the week with a given day and week number.
+
+Accessing Properties of a Day of the Week
+
+\texttt{var dayOfTheWeek: EKWeekday}
+
+The day of the week.
+
+\texttt{var weekNumber: Int}
+
+The week number of the day of the week.
+
+Relationships
+
+Inherits From
+
+\texttt{NSObject}
+
+Conforms To
+
+\texttt{CVarArg}
+
+\texttt{CustomDebugStringConvertible}
+
+\texttt{CustomStringConvertible}
+
+\texttt{Equatable}
+
+\texttt{Hashable}
+
+\texttt{NSCoding}
+
+\texttt{NSCopying}
+
+\texttt{NSObjectProtocol}
+
+\texttt{NSSecureCoding}
+
+See Also
+
+Recurrence
+
+\textbf{Creating a recurring event}
+
+Set up an event or reminder that repeats.
+
+\texttt{class EKRecurrenceEnd}
+
+A class that defines the end of a recurrence rule.
+
+\texttt{class EKRecurrenceRule}
+
+A class that describes the pattern for a recurring event.
+
+\newpage
+\end{document}

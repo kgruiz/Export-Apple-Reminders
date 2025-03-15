@@ -1,0 +1,168 @@
+\documentclass{article}
+\title{}
+\author{}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+Language: Objective-C
+
+EventKit / EKCalendarItem
+
+Class
+
+\textbf{EKCalendarItem}
+
+An abstract superclass for calendar events and reminders.
+
+iOS 5.0+ | iPadOS 5.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\texttt{@interface EKCalendarItem : EKObject}
+
+Mentioned in
+\begin{itemize}
+    \item Creating events and reminders
+    \item Creating a recurring event
+\end{itemize}
+
+Overview
+
+The \texttt{EKCalendarItem} is an abstract superclass for calendar events and reminders. This class provides common properties and methods for accessing properties of calendar items such as the ability to set the calendar, title, and location, as well as support for attaching notes, displaying attendees, setting multiple alarms, and specifying recurrence rules.
+
+Topics
+
+Accessing Calendar Items
+
+\texttt{calendarItemIdentifier}
+
+The calendar item's unique identifier.
+
+\texttt{calendarItemExternalIdentifier}
+
+The calendar item's external identifier as provided by the calendar server.
+
+\texttt{UUID}
+
+The calendar item's unique identifier.
+
+Deprecated
+
+Accessing Calendar Item Properties
+
+\texttt{calendar}
+
+The calendar for the calendar item.
+
+\texttt{title}
+
+The title for the calendar item.
+
+\texttt{location}
+
+The location associated with the calendar item.
+
+\texttt{creationDate}
+
+The date that this calendar item was created.
+
+\texttt{lastModifiedDate}
+
+The date that the calendar item was last modified.
+
+\texttt{timeZone}
+
+The time zone for the calendar item.
+
+\texttt{URL}
+
+The URL for the calendar item.
+
+Attaching Notes
+
+\texttt{hasNotes}
+
+A Boolean value that indicates whether the calendar item has notes.
+
+\texttt{notes}
+
+The notes associated with the calendar item.
+
+Displaying Attendees
+
+\texttt{hasAttendees}
+
+A Boolean value that indicates whether the calendar item has attendees.
+
+\texttt{attendees}
+
+The attendees associated with the calendar item, as an array of \texttt{EKParticipant} objects.
+
+Adding and Removing Alarms
+
+\texttt{hasAlarms}
+
+A Boolean value that indicates whether the calendar item has alarms.
+
+\texttt{- addAlarm:}
+
+Adds an alarm to the receiver.
+
+\texttt{- removeAlarm:}
+
+Removes an alarm from the calendar item.
+
+\texttt{alarms}
+
+The alarms associated with the calendar item, as an array of \texttt{EKAlarm} objects.
+
+Setting Recurrence Rules
+
+\texttt{hasRecurrenceRules}
+
+A Boolean value that indicates whether the calendar item has recurrence rules.
+
+\texttt{- addRecurrenceRule:}
+
+Adds a recurrence rule to the recurrence rule array.
+
+\texttt{- removeRecurrenceRule:}
+
+Removes a recurrence rule from the recurrence rule array.
+
+\texttt{recurrenceRules}
+
+The recurrence rules for the calendar item.
+
+Relationships
+
+Inherits From
+
+\texttt{EKObject}
+
+Inherited By
+
+\texttt{EKEvent}, \texttt{EKReminder}
+
+See Also
+
+Common objects
+
+\texttt{EKObject}
+
+An abstract superclass for all EventKit classes that have persistent instances.
+
+\texttt{EKSource}
+
+An abstract superclass that represents the account a calendar belongs to.
+
+\newpage
+\end{document}

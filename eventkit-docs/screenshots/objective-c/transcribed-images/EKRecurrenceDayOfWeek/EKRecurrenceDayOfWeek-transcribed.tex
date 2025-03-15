@@ -1,0 +1,98 @@
+\documentclass{article}
+\title{}
+\author{}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+Available on iOS 4.0 and later
+
+EventKit / EKRecurrenceDayOfWeek
+
+Class
+
+\textbf{EKRecurrenceDayOfWeek}
+
+A class that represents the day of the week.
+
+iOS 4.0+ | iPadOS 4.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+@interface EKRecurrenceDayOfWeek : NSObject
+
+Mentioned in
+
+Creating a recurring event
+
+Overview
+
+The EKRecurrenceDayOfWeek class represents a day of the week for use with an EKRecurrenceRule object.
+
+A day of the week can optionally have a week number, indicating a specific day in the recurrence rule's frequency. For example, a day of the week with a day value of Tuesday and a week number of 2 would represent the second Tuesday of every month in a monthly recurrence rule, and the second Tuesday of every year in a yearly recurrence rule. A day of the week with a week number of 0 ignores its week number.
+
+Topics
+
+Creating a Day of the Week
+
+\textit{EKWeekday}
+
+The day of the week.
+
+\textit{dayOfWeek:}
+
+Creates and returns a day of the week with a given day.
+
++ \textit{dayOfWeek: weekNumber:}
+
+Creates and returns an autoreleased day of the week with a given day and week number.
+
+- \textit{initWithDayOfTheWeek: weekNumber:}
+
+Initializes and returns a day of the week with a given day and week number.
+
+Accessing Properties of a Day of the Week
+
+\textit{dayOfTheWeek}
+
+The day of the week.
+
+\textit{weekNumber}
+
+The week number of the day of the week.
+
+Relationships
+
+Inherits From
+
+\textit{NSObject}
+
+Conforms To
+
+\textit{NSCopying, NSSecureCoding}
+
+See Also
+
+Recurrence
+
+Creating a recurring event
+
+Set up an event or reminder that repeats.
+
+\textit{EKRecurrenceEnd}
+
+A class that defines the end of a recurrence rule.
+
+\textit{EKRecurrenceRule}
+
+A class that describes the pattern for a recurring event.
+
+\newpage
+\end{document}

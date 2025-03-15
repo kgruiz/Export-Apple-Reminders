@@ -1,0 +1,146 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+
+EventKit / EKRecurrenceRule
+
+Class
+
+\textbf{EKRecurrenceRule}
+
+A class that describes the pattern for a recurring event.
+
+iOS 4.0+ | iPadOS 4.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\texttt{@interface EKRecurrenceRule : EKObject}
+
+Mentioned in
+
+Creating a recurring event
+
+Overview
+
+After you create a recurrence rule, assign it to an event with the method of \texttt{EKEvent}.
+
+Recurrence rules can have an end, represented by an \texttt{EKRecurrenceEnd} object. The end can be based on a specific date or a maximum number of occurrences.
+
+\noindent\fbox{%
+    \begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
+        Note
+
+        It is currently not possible to directly modify an \texttt{EKRecurrenceRule} or any of its properties. This functionality is achieved by creating a new \texttt{EKRecurrenceRule} and setting an event or reminder to use the newly created rule.
+    \end{minipage}
+}
+
+Topics
+
+Creating a Basic Recurrence Rule
+
+\texttt{EKSpan}
+
+An object that indicates whether modifications should apply to a single event or all future events of a recurring event.
+
+\texttt{- initRecurrenceWithFrequency: interval:end:}
+
+Initializes and returns a simple recurrence rule with a given frequency, interval, and end.
+
+Creating a Complex Recurrence Rule
+
+\texttt{- initRecurrenceWithFrequency: interval:daysOfTheWeek: daysOfTheMonth:monthsOfThe
+Year:weeksOfTheYear:daysOfTheYear:setPositions:end:}
+
+Initializes and returns a recurrence rule with a given frequency and additional scheduling information.
+
+Accessing Recurrence Rule Properties
+
+\texttt{EKRecurrenceFrequency}
+
+The frequency for recurrence rules.
+
+\texttt{calendarIdentifier}
+
+The identifier for the recurrence rule's calendar.
+
+\texttt{recurrenceEnd}
+
+Indicates when the recurrence rule ends.
+
+\texttt{frequency}
+
+The frequency of the recurrence rule.
+
+\texttt{interval}
+
+Specifies how often the recurrence rule repeats over the unit of time indicated by its frequency.
+
+\texttt{firstDayOfTheWeek}
+
+Indicates which day of the week the recurrence rule treats as the first day of the week.
+
+\texttt{daysOfTheWeek}
+
+The days of the week associated with the recurrence rule, as an array of \texttt{EKRecurrenceDayOfWeek} objects.
+
+\texttt{daysOfTheMonth}
+
+The days of the month associated with the recurrence rule, as an array of \texttt{NSNumber} objects.
+
+\texttt{daysOfTheYear}
+
+The days of the year associated with the recurrence rule, as an array of \texttt{NSNumber} objects.
+
+\texttt{weeksOfTheYear}
+
+The weeks of the year associated with the recurrence rule, as an array of \texttt{NSNumber} objects.
+
+\texttt{monthsOfTheYear}
+
+The months of the year associated with the recurrence rule, as an array of \texttt{NSNumber} objects.
+
+\texttt{setPositions}
+
+An array of ordinal numbers that filters which recurrences to include in the recurrence rule's frequency.
+
+\texttt{EK\_LOSE\_FRACTIONAL\_SECONDS\_DO\_NOT\_USE}
+
+A deprecated function.
+
+\textbf{Deprecated}
+
+Relationships
+
+Inherits From
+
+\texttt{EKObject}
+
+Conforms To
+
+\texttt{NSCopying}
+
+See Also
+
+Recurrence
+
+Creating a recurring event
+
+Set up an event or reminder that repeats.
+
+\texttt{EKRecurrenceDayOfWeek}
+
+A class that represents the day of the week.
+
+\texttt{EKRecurrenceEnd}
+
+A class that defines the end of a recurrence rule.
+
+\end{document}

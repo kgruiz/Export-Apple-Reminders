@@ -1,0 +1,124 @@
+\documentclass{article}
+\title{}
+\author{}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\begin{document}
+Language: Swift
+
+EventKit / EKStructuredLocation
+
+Class
+
+\textbf{EKStructuredLocation}
+
+A class that specifies a geofence to activate the alarm of a calendar item.
+
+iOS 6.0+ | iPadOS 6.0+ | Mac Catalyst 13.1+ | macOS 10.8+ | visionOS 1.0+ | watchOS 2.0+
+
+\texttt{class EKStructuredLocation}
+
+Overview
+
+Use \texttt{init(title:)} to create a new structured location, then set it to the \texttt{structuredLocation} property of an \texttt{EKAlarm} object.
+
+Topics
+
+Creating Structured Locations
+
+\texttt{convenience init(title: String)}
+
+Creates a new structured location with the specified title.
+
+\texttt{convenience init(mapItem: MKMapItem)}
+
+Creates a new structured location with the specified map item.
+
+Accessing Structured Location Properties
+
+\texttt{var title: String?}
+
+The title of the location.
+
+\texttt{var geoLocation: CLLocation?}
+
+The core location.
+
+\texttt{var radius: Double}
+
+A minimum distance from the core location that would trigger the alarm or reminder.
+
+Relationships
+
+Inherits From
+
+\texttt{EKObject}
+
+Conforms To
+
+\texttt{CVarArg}
+
+\texttt{CustomDebugStringConvertible}
+
+\texttt{CustomStringConvertible}
+
+\texttt{Equatable}
+
+\texttt{Hashable}
+
+\texttt{NSCopying}
+
+\texttt{NSObjectProtocol}
+
+See Also
+
+Alarms
+
+Setting an alarm
+
+Alert users of events and reminders with an alarm.
+
+\texttt{class EKAlarm}
+
+A class that represents an alarm.
+
+Developer Documentation
+
+Platforms | Topics \& Technologies | Resources | Programs
+---|---|---|---
+iOS | Accessibility | Documentation | Apple Developer Program
+iPadOS | Accessories | Tutorials | Apple Developer Enterprise Program
+macOS | App Extension | Downloads | App Store Small Business Program
+tvOS | App Store | Forums | MFi Program
+visionOS | Audio \& Video | Videos | News Partner Program
+watchOS | Augmented Reality | Support | Video Partner Program
+Tools | Design | Support Articles | Security Bounty Program
+Swift | Distribution | Contact Us | Security Research Device Program
+SwiftUI | Education | Bug Reporting |
+Swift Playground | Fonts | System Status | Events
+TestFlight | Games | Account | Meet with Apple
+Xcode | Health \& Fitness | Apple Developer | Apple Developer Centers
+Xcode Cloud | In-App Purchase | App Store Connect | App Store Awards
+SF Symbols | Localization | Certificates, IDs, \& Profiles | Apple Design Awards
+| Maps \& Location | Feedback Assistant | Apple Developer Academies
+| Machine Learning | | WWDC
+| Open Source | |
+| Security | |
+| Safari \& Web | |
+
+To submit feedback on documentation, visit Feedback Assistant.
+
+Copyright \copyright\ 2025 Apple Inc. All rights reserved. Terms of Use Privacy Policy Agreements and Guidelines
+
+\newpage
+\end{document}
